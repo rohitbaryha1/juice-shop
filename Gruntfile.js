@@ -80,5 +80,5 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-replace-json')
   grunt.loadNpmTasks('grunt-contrib-compress')
-  grunt.registerTask('package', ['replace_json:manifest', 'compress:pckg', 'checksum'])
+  grunt.registerTask('default', ['replace_json:manifest', 'compress:pckg', 'checksum'])
 }
