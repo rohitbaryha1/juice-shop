@@ -44,13 +44,13 @@ jobs:
       - name: Get Envionrment Variables
         run: |
           echo $home
-          echo $github.workspace
+          echo ${{ github.workspace }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo 'Add other actions to build,'
+          echo 'test, and deploy your project.'
 
       ### Run Fortify ScanCentral Client ###
       # Update BUILD_OPTS based on the ScanCentral Client documentation and your project's included tech stack(s).
@@ -59,7 +59,7 @@ jobs:
       - name: Perform SAST Scan
         run: | 
           sourceanalyzer -b juice-shop -clean
-          sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "$github.workspace\**\*"
+          sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "${{ github.workspace }}\**\*"
           scancentral -url ${URL} start $BUILD_OPTS -upload -application $APPLICATION -version $VERSION -uptoken $TOKEN
         env:                                            
           URL: http://fortify201.myhome.com:8280/scancentral-ctrl
