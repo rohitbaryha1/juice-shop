@@ -63,9 +63,9 @@ jobs:
           echo test, and deploy your project.
       
       ### Archive ScanCentral Client logs on failure ###
-      - name: Save ScanCentral Logs
-      - uses: actions/upload-artifact@v2                
-        if: failure()
-        with:
-           name: scancentral-logs
-           path: ~/.fortify/scancentral/log
+    #  - name: Save ScanCentral Logs
+    #  - uses: actions/upload-artifact@v2                
+    #    if: failure()
+    #    with:
+    #       name: scancentral-logs
+    #       path: ~/.fortify/scancentral/log
