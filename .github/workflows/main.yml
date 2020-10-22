@@ -60,14 +60,15 @@ jobs:
         run: | 
           sourceanalyzer -b juice-shop -clean
           sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "${{ github.workspace }}\**\*"
-          scancentral -url "${{ env.URL }}" start -upload -application ${{ env.APPLICATION }} --application-version ${{ env.VERSION }} -b juice-shop -uptoken ${{ env.TOKEN }} -scan -Xmx2G
+          "${{ env.SCANCTRL_URL }}scancentral" -url "${{ env.URL }}" start -upload -application ${{ env.APPLICATION }} --application-version ${{ env.VERSION }} -b juice-shop -uptoken ${{ env.TOKEN }} -scan -Xmx2G
           #scancentral -url "http://fortify201.myhome.com:8280/scancentral-ctrl" start -upload -application "github-juice-shop" --application-version "0.1" -b juice-shop -uptoken bda951b8-9425-414d-a84f-35931a7e86cc -scan -Xmx2G
         env:                                            
           URL: "http://fortify201.myhome.com:8280/scancentral-ctrl"
           TOKEN: bda951b8-9425-414d-a84f-35931a7e86cc
           APPLICATION: "github-juice-shop"
           VERSION: "0.1"
-          BUILD_OPTS: ""         
+          BUILD_OPTS: ""
+          SCANCTRL_URL: "C:\\Program Files\\Fortify\\Fortify_SCA_and_Apps_20.1.0\\bin\\"         
       
       ### Archive ScanCentral Client logs on failure ###
     #  - name: Save ScanCentral Logs
