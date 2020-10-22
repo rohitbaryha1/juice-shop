@@ -29,16 +29,16 @@ jobs:
       - run: git checkout HEAD^2
         if: ${{ github.event_name == 'pull_request' }}
         
-      - name: setup Java for Fortify
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+#      - name: setup Java for Fortify
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 1.8
       
-      - name: download Fortify Scan central
-        uses: fortify/gha-setup-scancentral-client@v1.1.0
-        with:
-          version: 20.1.0
-          client-auth-token: ${{ secrets.CLIENT_AUTH_TOKEN }}
+ #     - name: download Fortify Scan central
+ #       uses: fortify/gha-setup-scancentral-client@v1.1.0
+ #       with:
+ #         version: 20.1.0
+ #         client-auth-token: ${{ secrets.CLIENT_AUTH_TOKEN }}
           
       # Runs a single command using the runners shell
       - name: Get Envionrment Variables
