@@ -40,27 +40,33 @@ jobs:
           version: 20.1.0
           client-auth-token: ${{ secrets.CLIENT_AUTH_TOKEN }}
           
-      ### Run Fortify ScanCentral Client ###
-      # Update BUILD_OPTS based on the ScanCentral Client documentation and your project's included tech stack(s).
-      #   ScanCentral Client will download dependencies for maven, gradle and msbuild projects.
-      #   For other build tools, add your build commands to the workflow to download necessary dependencies and prepare according to Fortify SCA documentation.
-      - name: Perform SAST Scan
-        run: scancentral -url ${URL} start $BUILD_OPTS -upload -application $APPLICATION -version $VERSION -uptoken $TOKEN
-        env:                                            
-          URL: http://fortify201.myhome.com:8280/scancentral-ctrl
-          TOKEN: bda951b8-9425-414d-a84f-35931a7e86cc
-          APPLICATION: "github-juice-shop"
-          VERSION: "0.1"
-          BUILD_OPTS: ""         
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Get Envionrment Variables
+        run: |
+          echo $home
+          echo $github.workspace
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      ### Run Fortify ScanCentral Client ###
+      # Update BUILD_OPTS based on the ScanCentral Client documentation and your project's included tech stack(s).
+      #   ScanCentral Client will download dependencies for maven, gradle and msbuild projects.
+      #   For other build tools, add your build commands to the workflow to download necessary dependencies and prepare according to Fortify SCA documentation.
+      - name: Perform SAST Scan
+        run: | 
+          sourceanalyzer -b juice-shop -clean
+          sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "$github.workspace\**\*"
+          scancentral -url ${URL} start $BUILD_OPTS -upload -application $APPLICATION -version $VERSION -uptoken $TOKEN
+        env:                                            
+          URL: http://fortify201.myhome.com:8280/scancentral-ctrl
+          TOKEN: bda951b8-9425-414d-a84f-35931a7e86cc
+          APPLICATION: "github-juice-shop"
+          VERSION: "0.1"
+          BUILD_OPTS: ""         
       
       ### Archive ScanCentral Client logs on failure ###
     #  - name: Save ScanCentral Logs
