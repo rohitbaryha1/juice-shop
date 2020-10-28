@@ -58,9 +58,12 @@ jobs:
       #   For other build tools, add your build commands to the workflow to download necessary dependencies and prepare according to Fortify SCA documentation.
       - name: Perform SAST Scan
         run: | 
-          sourceanalyzer -b juice-shop -clean
-          sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "${{ github.workspace }}\**\*"
-          scancentral -url "${{ env.URL }}" start -upload -application ${{ env.APPLICATION }} --application-version ${{ env.VERSION }} -b juice-shop -uptoken ${{ env.TOKEN }} -scan -Xmx2G
+          #sourceanalyzer -b juice-shop -clean
+          #sourceanalyzer -b juice-shop -debug-verbose -logfile gh-rohit.log "${{ github.workspace }}\**\*"
+
+          scancentral -url "${{ env.URL }}" start -bt none -application ${{ env.APPLICATION }} --application-version ${{ env.VERSION }} -uptoken ${{ env.TOKEN }} --output PkgTest.zip 
+
+          #scancentral -url "${{ env.URL }}" start -upload -application ${{ env.APPLICATION }} --application-version ${{ env.VERSION }} -b juice-shop -uptoken ${{ env.TOKEN }} -scan -Xmx2G
           #scancentral -url "http://fortify201.myhome.com:8280/scancentral-ctrl" start -upload -application "github-juice-shop" --application-version "0.1" -b juice-shop -uptoken bda951b8-9425-414d-a84f-35931a7e86cc -scan -Xmx2G
         env:                                            
           URL: "http://fortify201.myhome.com:8280/scancentral-ctrl"
